@@ -1,0 +1,167 @@
+# ! 这是缺省配置文件 !
+# 比赛必须设置为 true , 设置为 false 则会调用内录
+RealCompetitionMode: true
+
+Communication:
+  # 是否启用通讯模块 场上务必启用
+  enable: true
+  # 主程序的 IP 地址
+  address: 'tcp://localhost:1883'
+
+Mesh:
+  # 对齐用模型文件 读取地址
+  align:  'resource/bg2align.stl'
+  # 过滤用模型文件 读取地址
+  filter: 'resource/bg2filter_v2.stl'
+
+VoxelGrid:
+  # 体素网格的体素大小 单位: mm
+  voxelSize: 100.0
+  gridBox:
+    # 体素网格的框框
+    minCorr: [150, 150, 0]
+    maxCorr: [27850, 14850, 1500]
+  # 多面体占用的扩张大小 单位: mm
+  meshExpand: 150.0
+  # 膨胀的核半径大小 单位: 体素
+  dilateSize: 1
+
+PointCloud:
+  # 单批次读取点数 单位: 点
+  batchSize: 9600
+  # 聚类识别窗口 (缓存) 大小 单位: 批次
+  bufferSize: 10
+  # 用于初始化的采样点量 单位: 批次
+  sampleSize: 100
+  recorder:
+    # 是否开启内录
+    enable: true
+    # 是否开启压缩
+    zstdCompress: true
+    # 内录文件夹
+    directory: 'record'
+  replay:
+    # 是否开启回放 现在由 RealCompetitionMode 控制
+    # 是否开启压缩
+    zstdCompress: true
+    # 回放路径
+    path: ''
+  voxelFilter:
+    # 点云体素滤波器的体素大小 单位: mm
+    voxelSize: 50.0
+    # 最大密度 单位: 点/体素
+    maxDensity: 1
+    # 期望最大点数 单位: 点
+    expecteMaxPoints: 1000
+
+Visualizer:
+  # 更新间隔 单位: ms
+  updateInterval: 20
+  # 速率监控间隔 单位: 更新间隔数
+  speedInterval: 50
+
+Cluster:
+  # 聚类算法的基本参数
+  basic:
+    # 使用修改版聚类算法
+    useDiff: true
+    # DBSCAN 聚类算法的聚类半径
+    eps: 200.0
+    # DBSCAN 聚类算法的最少点阈值
+    minPoints: 8
+    # DBSCAN (修改版) 聚类算法的最少点阈值的二次反比系数
+    minPointsK: 5.0e+9
+  # 宽松参数
+  loose:
+    eps: 250.0
+    minPoints: 5
+    # 进行宽松聚类的扩展边界 单位: mm
+    boxExpand: 100.0
+  # 严格参数
+  strict:
+    eps: 150.0
+    minPoints: 12
+  # Z 方向压缩参数
+  zZip: 0.5
+
+# 备注: 推荐 seperateFrameLimit < initLost < combineFrameLimit << lastFrames
+TargetMap:
+  # 跟踪车辆最大数目
+  flagSize: 25
+  # 跟踪延迟长度 单位: 帧
+  lastFrames: 100
+  # 跟踪合并跟丢阈值 单位: 帧
+  combineFrameLimit: 15
+  # 跟踪合并距离阈值 单位: mm
+  combineDistance: 400.0
+  # 强制合并距离阈值 单位: mm
+  forceCombineDistance: 100.0
+  # 跟踪距离阈值 单位: mm
+  disThres: 20.0
+  # 跟踪框相接阈值 单位: mm
+  ccThres: 50.0
+  # 初始跟踪框预设丢失帧计数 单位: 帧
+  initLost: 12
+  # 错误合并判定跟丢阈值 单位: 帧
+  seperateFrameLimit: 8
+  # 投影后 Z 轴高度
+  projectZ: 300.0
+
+KalmanFilter:
+  # 预测协方差矩阵
+  Q: [[50.0, 0.0, 0.0, 20.0, 0.0, 0.0],
+      [0.0, 50.0, 0.0, 0.0, 20.0, 0.0],
+      [0.0, 0.0, 50.0, 0.0, 0.0, 20.0],
+      [20.0, 0.0, 0.0, 20.0, 0.0, 0.0],
+      [0.0, 20.0, 0.0, 0.0, 20.0, 0.0],
+      [0.0, 0.0, 20.0, 0.0, 0.0, 20.0]]
+  # 观测协方差矩阵
+  R: [[2000.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+      [0.0, 2000.0, 0.0, 0.0, 0.0, 0.0],
+      [0.0, 0.0, 2500.0, 0.0, 0.0, 0.0],
+      [0.0, 0.0, 0.0, 15000.0, 0.0, 0.0],
+      [0.0, 0.0, 0.0, 0.0, 15000.0, 0.0],
+      [0.0, 0.0, 0.0, 0.0, 0.0, 15000.0]]
+  # 预测积累协方差
+  predictStop: 10
+  # 速度衰减比率 每次 kf 预测中对速度乘以此系数
+  decayRate: 5e-3
+  # z 轴速度衰减比率 每次 kf 预测中对速度乘以此系数
+  zDecayRate: 1e-1
+  # 速度限制 防止乱飞
+  speedLimit: 50.0
+  # 变化方差影响系数
+  covFactor: 1.0
+
+TransForm:
+  # 相机到激光雷达的变换矩阵
+  cam2LadarTrans: [ [ -0.120783,  -0.991742, -0.0431125, -150 ],
+                    [ -0.150089,  0.0611759 , -0.986778, 20 ],
+                    [ 0.981267 , -0.112715,  -0.156239, -220 ],
+                    [ 0.0,   0.0,    0.0,    1.0 ] ]
+  localTrans:
+    # 是否启用本地参数 场上务必禁用以接收 EPNP 结果
+    enable: false
+    # 本地参数 旋转矩阵
+    rotMat:  [[-0.5702951240879213, 0.8207715980062358, -0.03312786361709431],
+              [0.3203662563148177, 0.1851019557569734, -0.9290332221130588],
+              [-0.756392049969043, -0.5404361663334845, -0.3685102669701282]]
+    # 本地参数 平移向量 单位: mm
+    transVec: [-1178.9379230744297, -4960.263392337605, 18451.965068096555]
+  autoAlign:
+    # 是否使用基于前面标定结果的辅助自动对齐 场上推荐启用
+    enable: true
+    # 用于裁减多余点云的裁剪框
+    cropBox:
+      minCorr: [4000., 200., -500.]
+      maxCorr: [27800., 14800., 1500.]
+    # 对齐标定所采用的采样点数 切勿设置过大
+    meshSamplePoints: 200000
+    # 自动对齐的最大收敛距离 单位: mm
+    maxCorrDist: 500.0
+  outlierRadius: 40000.0
+  manualAlign:
+    # 是否手动标定 启用时**不会**使用本地和服务器发送的EPNP数据 必要时启用
+    enable: false
+    # 手动标定所采用的采样点数 切勿设置过大
+    meshSamplePoints: 1000000
