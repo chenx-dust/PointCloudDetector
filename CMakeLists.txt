@@ -18,9 +18,9 @@ add_executable(PointCloudDetection)
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 target_sources(PointCloudDetection PRIVATE ${SRC_FILES})
 
-file(COPY resource DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-configure_file(config.yaml ${CMAKE_CURRENT_BINARY_DIR}/config.yaml COPYONLY)
-configure_file(default.yaml ${CMAKE_CURRENT_BINARY_DIR}/default.yaml COPYONLY)
+# file(COPY resource DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+# configure_file(config.yaml ${CMAKE_CURRENT_BINARY_DIR}/config.yaml COPYONLY)
+# configure_file(default.yaml ${CMAKE_CURRENT_BINARY_DIR}/default.yaml COPYONLY)
 
 target_include_directories(PointCloudDetection PRIVATE include)
 

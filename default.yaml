@@ -12,7 +12,7 @@ Mesh:
   # 对齐用模型文件 读取地址
   align:  'resource/bg2align.stl'
   # 过滤用模型文件 读取地址
-  filter: 'resource/bg2filter_v2.stl'
+  filter: 'resource/bg2filter.stl'
 
 VoxelGrid:
   # 体素网格的体素大小 单位: mm

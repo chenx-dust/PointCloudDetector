@@ -4,6 +4,7 @@
 
 extern YAML::Node CF_CONFIG, CF_DEFAULT;
 
+// 这一堆宏是为了实现从缺省配置文件中读取缺省值
 #define CFG1(key1, type) CF_CONFIG[key1].as<type>(CF_DEFAULT[key1].as<type>())
 #define CFG2(key1, key2, type) CF_CONFIG[key1][key2].as<type>(CF_DEFAULT[key1][key2].as<type>())
 #define CFG3(key1, key2, key3, type) CF_CONFIG[key1][key2][key3].as<type>(CF_DEFAULT[key1][key2][key3].as<type>())
