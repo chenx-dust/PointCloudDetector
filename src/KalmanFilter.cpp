@@ -3,15 +3,6 @@
 #include "Config.h"
 #include <Eigen/Dense>
 
-// 已知一辆小车的乐观估计 最高速度 5m/s 最高加速度 20m/s^2
-// 点云速度 452,000p/s
-// 协方差矩阵的迹的平方根是标准差
-// 误差的 65% 在 1 标准差内
-// 由此可以得出 Q R 的取值
-
-// 状态变量
-// {x, y, z, vx, vy, vz}
-
 double Kf_speed_limit, cov_factor;
 size_t predict_stop;
 

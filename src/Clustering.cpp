@@ -129,12 +129,6 @@ std::vector<int> NormalDBSCAN(
     open3d::geometry::KDTreeFlann kdtree(cloud);
 
     std::vector<std::vector<int>> nbs(cloud.points_.size());
-    // #pragma omp parallel for schedule(static) \
-    //     num_threads(utility::EstimateMaxThreads())
-    //     for (int idx = 0; idx < int(cloud.points_.size()); ++idx) {
-    //         std::vector<double> dists2;
-    //         kdtree.SearchRadius(cloud.points_[idx], eps, nbs[idx], dists2);
-    //     }
     tbb::parallel_for(tbb::blocked_range<int>(0, int(cloud.points_.size())),
         [&](const tbb::blocked_range<int> &r) {
             for (int idx = r.begin(); idx < r.end(); ++idx) {

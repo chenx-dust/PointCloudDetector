@@ -161,7 +161,7 @@ TransForm:
     maxCorrDist: 500.0
   outlierRadius: 40000.0
   manualAlign:
-    # 是否手动标定 启用时**不会**使用本地和服务器发送的EPNP数据 必要时启用
+    # 是否手动标定 启用时**不会**使用本地和服务器发送的 EPNP 数据 必要时启用
     enable: false
     # 手动标定所采用的采样点数 切勿设置过大
     meshSamplePoints: 1000000

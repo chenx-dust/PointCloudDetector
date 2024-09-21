@@ -1,6 +1,6 @@
 # ! 以下配置项均为必检查项 !
 # 真实比赛模式 比赛必须设置为 true , 设置为 false 则会调用内录
-RealCompetitionMode: true
+RealCompetitionMode: false
 
 Communication:
   # broker 的 IP 地址
@@ -12,7 +12,7 @@ PointCloud:
   # ! 以下为回放选项, 仅在 RealCompetitionMode 为 false 时需要配置 !
   replay:
     # 回放路径 (建议别填, 便于在场上发现错误)
-    path: ''
+    path: './20230810T170355.lidardump.zst'
 
 TransForm:
   localTrans:
@@ -20,7 +20,7 @@ TransForm:
     # true: 采用下面的参数
     # false: 采用服务器发送的参数
     # ! 比赛应该设置为 false !
-    enable: false
+    enable: true
     # 本地参数 旋转矩阵
     rotMat:  [[-0.15388790523817936, -0.9880761955592113, -0.0048203854286677774],
               [-0.37946886466912755, 0.06360347452090469, -0.9230152441877383],
